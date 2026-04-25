@@ -1,0 +1,182 @@
+{
+  "campaigns": [
+    {
+      "id": "00c968f9-7141-4181-9cad-cdaa4fc16784",
+      "name": "La mine perdue de Phalandine",
+      "dm": "Valentin"
+    }
+  ],
+  "characters": [
+    {
+      "id": "8939749a-a3d2-4bb6-9f55-8efc0882e6c2",
+      "campaignId": "00c968f9-7141-4181-9cad-cdaa4fc16784",
+      "name": "Psilo",
+      "species": "Halfelin",
+      "background": "Sage",
+      "class": "Sorcier",
+      "level": 1,
+      "height": "Petit",
+      "speed": "30 pieds.",
+      "armorClass": 11,
+      "initiativeBonus": 1,
+      "abilities": {
+        "strength": 10,
+        "dexterity": 12,
+        "constitution": 8,
+        "intelligence": 18,
+        "wisdom": 12,
+        "charisma": 12
+      },
+      "saveProficiencies": {
+        "strength": false,
+        "dexterity": false,
+        "constitution": false,
+        "intelligence": true,
+        "wisdom": true,
+        "charisma": false,
+        "sagesse": true,
+        "charisme": true,
+        "dextérité": true,
+        "force": true
+      },
+      "skillProficiencies": {
+        "acrobatics": false,
+        "animalHandling": false,
+        "insight": false,
+        "deception": false,
+        "stealth": true,
+        "arcana": true,
+        "investigation": true,
+        "persuasion": true
+      },
+      "expertise": {},
+      "toolProficiencies": "",
+      "weaponProficiencies": "",
+      "items": [
+        {
+          "id": "4ec358a0-0358-45bd-ac68-19c572cc1dbe",
+          "name": "Club",
+          "description": "Lumière : lorsque vous effectuez l'action d'attaque à votre tour et. attaquez avec une arme légère, vous pouvez effectuer une attaque supplémentaire en tant qu'action bonus plus tard au cours du même tour. Cette attaque supplémentaire doit être effectuée avec une arme légère différente, et vous n'ajoutez pas votre modificateur de capacité aux dégâts de l'attaque supplémentaire à moins que ce modificateur ne soit négatif. Par exemple, vous pouvez attaquer avec une épée courte dans une main et un poignard dans l'autre en utilisant l'action d'attaque et une action bonus, mais vous n'ajoutez pas votre modificateur de Force ou de Dextérité au jet de dégâts de l'action bonus, sauf si ce modificateur est négatif.\n\nLenteur (Maîtrise) : Si vous touchez une créature avec cette arme et lui infligez des dégâts, vous pouvez réduire sa vitesse de 10 pieds jusqu'au début de votre prochain tour. Si la créature est touchée plus d'une fois par des armes possédant cette propriété, la réduction de vitesse ne dépasse pas 3 mètres.\n\nCompétence : simple, club\nSource : Document de référence système v5.2.1",
+          "quantity": 1,
+          "isEquipped": false,
+          "isCustom": false
+        }
+      ],
+      "spells": [
+        {
+          "id": "a093e4fa-d876-4db1-a50d-fecac6824cf7",
+          "name": "Mains brûlantes",
+          "level": 1,
+          "isPrepared": true
+        },
+        {
+          "id": "9135bb04-d07c-40ed-a536-0758bc4ffe71",
+          "name": "Personne de charme",
+          "level": 1,
+          "isPrepared": true
+        }
+      ],
+      "features": [
+        {
+          "id": "8c8f6410-8904-4467-ac65-15968473ff9d",
+          "name": "Traits des Halfelins",
+          "description": "Les traits suivants sont accordés par cette espèce. Veuillez vous assurer d'appliquer manuellement tous les modificateurs pertinents (par exemple, Résistance au poison nain) si nécessaire.\n\nType de créature : Humanoïde\n\nTaille : Petit (environ 2 à 3 pieds de haut)\n\nCourageux : Vous avez un avantage sur les jets de sauvegarde que vous effectuez pour éviter ou mettre fin à l'état d'effroi.\n\nAgilité halfeline : vous pouvez vous déplacer dans l'espace de n'importe quelle créature d'une taille plus grande que vous. mais on ne peut pas s'arrêter dans le même espace.\n\nChance : Lorsque vous obtenez un 1 sur le d20 d'un test D20. vous pouvez relancer le dé et vous devez utiliser le nouveau jet.\n\nNaturellement furtif : vous pouvez effectuer l'action Cacher même si vous êtes obscurci uniquement par une créature d'au moins une taille plus grande que vous.",
+          "source": "Espèce"
+        },
+        {
+          "id": "af7b630f-ff6a-4caa-bb1f-486cc8546f1f",
+          "name": "Devenir sorcier en tant que personnage de niveau 1",
+          "description": "En tant que Sorcier de niveau 1, vous commencez le jeu avec 6 + vos points de vie du modificateur de Constitution.\n\nTraits de base du sorcier\nCapacité principale : Charisme\nDé de points de vie : D6 par niveau de sorcier\nCompétences du jet de sauvegarde : constitution et charisme\nCompétences : Choisissez 2 : Arcanes, Tromperie, Perspicacité, Intimidation, Persuasion ou Religion\nMaîtrise des armes : armes simples\nEntraînement à l'armure : Aucun\nÉquipement de départ : Choisissez A ou 8 : (A) Lance, 2 dagues, Arcane Focus (cristal), Pack de Dungeoneer et 28 GP ; ou (B) 50 GP\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "a4e5b6cc-a554-4f13-8506-67331cc3f49e",
+          "name": "Devenir sorcier en tant que personnage multiclasse",
+          "description": "Traits de base du sorcier\nCapacité principale : Charisme\nDé de points de vie : D6 par niveau de sorcier\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "cd3d6e4e-0f30-4e20-aca2-80c45b12243b",
+          "name": "Niveau 1 : lancement de sorts",
+          "description": "En puisant dans votre magie innée, vous pouvez lancer des sorts. Voir le chapitre 7 pour les règles sur le lancement de sorts. Les informations ci-dessous détaillent la manière dont vous utilisez ces règles avec les sorts de Sorcier, qui apparaissent dans la liste des sorts de Sorcier plus loin dans la description de la classe.\n\nCantrips. Vous connaissez quatre cantrips Sorcier de votre choix. Lumière, Prestidigitation, Prise Choquante et Explosion Sorcière sont recommandés. Chaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer l'un de vos cantrips de cette fonctionnalité par un autre cantrip de Sorcier de votre choix.\n\tLorsque vous atteignez les niveaux de sorcier 4 et 10, vous apprenez un autre cantrip de sorcier de votre choix, comme indiqué dans la colonne Cantrips du tableau des caractéristiques du sorcier.\n\nEmplacements de sorts. Le tableau des fonctionnalités du sorcier indique le nombre d'emplacements de sorts dont vous disposez pour lancer vos sorts de niveau 1+. Vous récupérez tous les emplacements dépensés lorsque vous terminez un repos long.\n\nSorts préparés de niveau 1+. Vous préparez la liste des sorts de niveau 1+ que vous pouvez lancer avec cette fonctionnalité. Pour commencer, choisissez deux sorts de Sorcier de niveau 1. Burning Hands et Detect Magic sont recommandés.\n\tLe nombre de sorts sur votre liste augmente à mesure que vous gagnez des niveaux de sorcier, comme indiqué dans la colonne Sorts préparés du tableau des fonctionnalités du sorcier. Chaque fois que ce nombre augmente, choisissez des sorts de sorcier supplémentaires jusqu'à ce que le nombre de sorts sur votre liste corresponde au nombre indiqué dans le tableau des caractéristiques du sorcier. Les sorts choisis doivent être d'un niveau pour lequel vous disposez d'emplacements de sorts. Par exemple, si vous êtes un sorcier de niveau 3, votre liste de sorts préparés peut inclure six sorts de sorcier de niveau 1 ou 2 dans n'importe quelle combinaison.\n\tSi une autre fonctionnalité de Sorcier vous donne des sorts que vous avez toujours préparés, ces sorts ne comptent pas dans le nombre de sorts que vous pouvez préparer avec cette fonctionnalité, mais ces sorts comptent autrement comme des sorts de Sorcier pour vous.\n\nChanger vos sorts préparés. À chaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer un sort de votre liste par un autre sort de Sorcier pour lequel vous disposez d'emplacements de sorts.\n\nCapacité de lancer des sorts. Le charisme est votre capacité de lancement de sorts pour vos sorts de sorcier.\n\nConcentration sur le lancement de sorts. Vous pouvez utiliser un Focus Arcane comme Focus de lancement de sorts pour vos sorts de Sorcier.\n\nSorts de sorcier préparés :\nNiveau | Sorts préparés\n1 | 2\n2 | 4\n3 | 6\n4 | 7\n5 | 9\n6 | 10\n7 | 11\n8 | 12\n9 | 14\n10 | 15\n11 | 16\n12 | 16\n13 | 17\n14 | 17\n15 | 18\n16 | 18\n17 | 19\n18 | 20\n19 | 21\n20 | 22\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "ce7b1dcc-1324-44b7-a5c3-a0d3609768cc",
+          "name": "Niveau 1 : Sorcellerie Innée",
+          "description": "Un événement de votre passé a laissé en vous une marque indélébile, vous imprégnant d’une magie frémissante. En tant qu'action bonus, vous pouvez libérer cette magie pendant 1 minute, pendant laquelle vous bénéficiez des avantages suivants :\n\n\t• Le DD de sauvegarde des sorts de vos sorts de Sorcier augmente de 1.\n\t• Vous avez l'Avantage aux jets d'attaque des sorts de Sorcier que vous lancez.\n\nVous pouvez utiliser cette fonctionnalité deux fois et vous en récupérez toutes les utilisations dépensées lorsque vous terminez un repos long.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "bb5c52c1-6342-4eab-9dc7-d92234cb34f0",
+          "name": "Niveau 2 : Fonte de Magie",
+          "description": "Vous pouvez puiser dans la source de la magie qui sommeille en vous. Cette source est représentée par des points de sorcellerie, qui vous permettent de créer une variété d'effets magiques.\n\tVous disposez de 2 points de sorcellerie, et vous en gagnez davantage à mesure que vous atteignez des niveaux plus élevés, comme indiqué dans la colonne Points de sorcellerie du tableau des caractéristiques du sorcier. Vous ne pouvez pas avoir plus de points de sorcellerie que le nombre indiqué dans le tableau pour votre niveau. Vous récupérez tous les points de sorcellerie dépensés lorsque vous terminez un repos long.\n\tVous pouvez utiliser vos points de sorcellerie pour alimenter les options ci-dessous, ainsi que d'autres fonctionnalités, telles que Metamagic, qui utilisent ces points.\n\nConversion des emplacements de sorts en points de sorcellerie. Vous pouvez dépenser un emplacement de sort pour gagner un nombre de points de sorcellerie égal au niveau de l'emplacement (aucune action requise).\n\nCréation d'emplacements de sorts. Par une action bonus, vous pouvez transformer les points de sorcellerie non dépensés en un emplacement de sort. Le tableau Création d'emplacements de sorts indique le coût de création d'un emplacement de sort d'un niveau donné et indique le niveau de sorcier minimum que vous devez avoir pour créer un emplacement. Vous pouvez créer un emplacement de sort ne dépassant pas le niveau 5.\n\tTout emplacement de sort que vous créez avec cette fonctionnalité disparaît lorsque vous terminez un repos long.\n\nCréation d'emplacements de sorts :\nNiveau d'emplacement de sort | Coût en points de sorcellerie | Min. Niveau de sorcier\n1 | 2 | 2\n2 | 3 | 3\n3 | 5 | 5\n4 | 6 | 7\n5 | 7 | 9\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "dd43106c-7d25-4372-9750-8fcaf047cfe1",
+          "name": "Niveau 2 : métamagie",
+          "description": "Parce que votre magie coule de l’intérieur, vous pouvez modifier vos sorts en fonction de vos besoins ; vous gagnez deux options métamagiques de votre choix parmi « Options métamagiques » plus loin dans la description de cette classe (ajoutées en tant que sorts dans la liste des sorts Options métamagiques). Vous utilisez les options choisies pour modifier temporairement les sorts que vous lancez. Pour utiliser une option, vous devez dépenser le nombre de points de sorcellerie qu'elle coûte.\n\tVous ne pouvez utiliser qu'une seule option métamagique sur un sort lorsque vous le lancez, sauf indication contraire dans l'une de ces options.\n\tChaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer l'une de vos options de métamagie par une autre que vous ne connaissez pas. Vous gagnez deux options supplémentaires au niveau de sorcier 10 et deux autres au niveau de sorcier 17.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "fb5d38dd-33cc-41fa-821f-71a9d63cafe7",
+          "name": "Initié magique (Magicien)",
+          "description": "Vous bénéficiez des avantages suivants.\n\nDeux Cantrips. Vous apprenez deux sorts mineurs de votre choix dans la liste des sorts de clerc, de druide ou de sorcier. L'intelligence, la sagesse ou le charisme sont votre capacité de lancement de sorts pour les sorts de ce don (à choisir lorsque vous sélectionnez ce don).\n\nSort de niveau 1. Choisissez un sort de niveau 1 dans la même liste que celle que vous avez sélectionnée pour les sorts mineurs de ce don. Vous avez toujours ce sort préparé. Vous pouvez le lancer une fois sans emplacement de sort, et vous retrouvez la possibilité de le lancer de cette manière lorsque vous terminez un repos long. Vous pouvez également lancer le sort en utilisant n’importe quel emplacement de sort dont vous disposez.\n\nChangement de sort. À chaque fois que vous gagnez un nouveau niveau, vous pouvez remplacer l'un des sorts que vous avez choisis pour ce don par un autre sort du même niveau issu de la liste de sorts choisie.\n\nRépétable. Vous pouvez obtenir ce don plusieurs fois, mais vous devez choisir une liste de sorts différente à chaque fois.\n\nSource : Document de référence système v5.2.1",
+          "source": "Historique"
+        }
+      ],
+      "spellSlots": {
+        "0": {
+          "total": 4,
+          "used": 0
+        },
+        "1": {
+          "total": 3,
+          "used": 0
+        },
+        "2": {
+          "total": 2,
+          "used": 0
+        },
+        "3": {
+          "total": 0,
+          "used": 0
+        },
+        "4": {
+          "total": 0,
+          "used": 0
+        },
+        "5": {
+          "total": 0,
+          "used": 0
+        },
+        "6": {
+          "total": 0,
+          "used": 0
+        },
+        "7": {
+          "total": 0,
+          "used": 0
+        },
+        "8": {
+          "total": 0,
+          "used": 0
+        },
+        "9": {
+          "total": 0,
+          "used": 0
+        }
+      },
+      "hitPoints": {
+        "current": 10,
+        "max": 10
+      },
+      "hitDice": {
+        "total": 1,
+        "used": 0
+      },
+      "lastLongRestAt": 1776589137445
+    }
+  ]
+}

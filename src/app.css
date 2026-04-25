@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-parchment-100: #fcf6e8;
+	--color-parchment-200: #f5eccc;
+	--color-parchment-300: #e8dcb5;
+	--color-parchment-400: #d6c694;
+	--color-parchment-800: #594f38;
+	--color-parchment-900: #3b3323;
+
+	--color-ink-red: #8b0000;
+	--color-ink-blue: #00008b;
+
+	--font-sans: 'Rancho', cursive;
+	--font-serif: 'Rancho', cursive;
+}
+
+body {
+	font-family: 'Rancho', cursive;
+	background-color: var(--color-parchment-200);
+	color: var(--color-parchment-900);
+}
+
+.parchment {
+	background-color: transparent;
+	border-style: solid;
+	border-width: 20px;
+	border-image: url('https://res.cloudinary.com/ez-nettools/image/upload/v1635183100/parchment-hand-painted_zfdfpt.avif')
+		32 fill stretch;
+}
+
+.rancho-regular {
+	font-family: 'Rancho', cursive;
+	font-weight: 400;
+	font-style: normal;
+}
