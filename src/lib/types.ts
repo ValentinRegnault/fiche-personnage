@@ -83,6 +83,7 @@ export interface Character {
 	hitPoints: { current: number; max: number };
 	hitDice: { total: number; used: number };
 	lastLongRestAt?: number;
+	arcaneRecoveryUsed?: boolean;
 
 	items: CharacterItem[];
 	spells: CharacterSpell[];

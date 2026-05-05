@@ -10,9 +10,7 @@ export async function load() {
 	const classes = data.classes.map((c: any) => ({
 		id: c.id,
 		name: c.name,
-		savingThrowProficiencies: c.savingThrowProficiencies,
-		skillProficiencies: c.skillProficiencies,
-		numberOfSkills: c.numberOfSkills,
+                spellAbility: c.spellAbility,
 		classFeatures: c.classFeatures
 	}));
 

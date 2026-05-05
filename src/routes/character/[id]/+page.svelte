@@ -43,7 +43,13 @@
 	}
 
 	const proficiencyBonus = $derived(char ? Math.ceil(1 + char.level / 4) : 2);
-	const passivePerception = $derived(char ? 10 + getMod(char.abilities.wisdom) : 10);
+	const passivePerception = $derived(
+		char
+			? 10 +
+					getMod(char.abilities.wisdom) +
+					(char.skillProficiencies.perception ? proficiencyBonus : 0)
+			: 10
+	);
 
 	const STATS = [
 		{ key: 'strength', label: 'Force', abbr: 'FOR' },
@@ -67,7 +73,10 @@
 		charisme: 'charisma'
 	};
 
-	function normalizeStatKey(statName: string): keyof Character['abilities'] | null {
+	function normalizeStatKey(
+		statName: string | undefined | null
+	): keyof Character['abilities'] | null {
+		if (!statName || typeof statName !== 'string') return null;
 		const normalized = statName
 			.toLowerCase()
 			.normalize('NFD')
@@ -172,6 +181,28 @@
 	let restMode = $state<RestMode>('short');
 	let shortRestDiceCount = $state(0);
 	let shortRestRolls = $state<number[]>([]);
+	let arcaneRecoverySelection = $state<Record<number, number>>({});
+
+	const ARCANE_RECOVERY_FEATURE_ID = '25e7fad3-fac6-4d3a-9d10-2e66b7273948';
+	const hasArcaneRecoveryFeature = $derived.by(
+		() => !!char?.features?.some((feature) => feature.id === ARCANE_RECOVERY_FEATURE_ID)
+	);
+	const arcaneRecoveryLevelBudget = $derived.by(() =>
+		char ? Math.ceil((char.level || 1) / 2) : 0
+	);
+	const arcaneRecoverySelectionWeight = $derived.by(() => {
+		return Object.entries(arcaneRecoverySelection).reduce((sum, [level, count]) => {
+			const lvl = Number(level);
+			return sum + lvl * Math.max(0, count || 0);
+		}, 0);
+	});
+	const arcaneRecoveryRemainingBudget = $derived.by(() =>
+		Math.max(0, arcaneRecoveryLevelBudget - arcaneRecoverySelectionWeight)
+	);
+	const arcaneRecoveryCanBeUsedNow = $derived.by(
+		() => !!char && hasArcaneRecoveryFeature && !char.arcaneRecoveryUsed
+	);
+	const hasArcaneRecoverySelection = $derived.by(() => arcaneRecoverySelectionWeight > 0);
 
 	function getClassHitDieSize(className: string) {
 		const normalized = normalizeClassName(className);
@@ -188,6 +219,7 @@
 		restMode = mode;
 		shortRestDiceCount = 0;
 		shortRestRolls = [];
+		arcaneRecoverySelection = {};
 		isRestModalOpen = true;
 	}
 
@@ -207,6 +239,41 @@
 		shortRestRolls = rolls;
 	}
 
+	function getArcaneRecoveryUsedSlots(level: number) {
+		if (!char || level < 1 || level > 5) return 0;
+		return Math.max(0, char.spellSlots?.[level]?.used || 0);
+	}
+
+	function getArcaneRecoverySelectedSlots(level: number) {
+		return Math.max(0, arcaneRecoverySelection[level] || 0);
+	}
+
+	function canIncreaseArcaneRecoveryLevel(level: number) {
+		if (!char || level < 1 || level > 5) return false;
+		if (!arcaneRecoveryCanBeUsedNow) return false;
+		const selected = getArcaneRecoverySelectedSlots(level);
+		const spent = getArcaneRecoveryUsedSlots(level);
+		if (selected >= spent) return false;
+		return arcaneRecoverySelectionWeight + level <= arcaneRecoveryLevelBudget;
+	}
+
+	function increaseArcaneRecoveryLevel(level: number) {
+		if (!canIncreaseArcaneRecoveryLevel(level)) return;
+		arcaneRecoverySelection = {
+			...arcaneRecoverySelection,
+			[level]: getArcaneRecoverySelectedSlots(level) + 1
+		};
+	}
+
+	function decreaseArcaneRecoveryLevel(level: number) {
+		const selected = getArcaneRecoverySelectedSlots(level);
+		if (selected <= 0) return;
+		arcaneRecoverySelection = {
+			...arcaneRecoverySelection,
+			[level]: selected - 1
+		};
+	}
+
 	const constitutionModifier = $derived.by(() => (char ? getMod(char.abilities.constitution) : 0));
 
 	const shortRestHealingTotal = $derived.by(() => {
@@ -218,11 +285,33 @@
 
 	function applyShortRest() {
 		if (!char) return;
-		if (shortRestDiceCount <= 0) return;
-		const healedHp = Math.min(maxHitPoints, currentHitPoints + shortRestHealingTotal);
-		const newUsedHitDice = Math.min(totalHitDice, usedHitDice + shortRestDiceCount);
-		updateField('hitPoints', { current: healedHp, max: maxHitPoints });
-		updateField('hitDice', { total: totalHitDice, used: newUsedHitDice });
+
+		const hasHitDiceRecovery = shortRestDiceCount > 0;
+		const hasArcaneRecovery = arcaneRecoveryCanBeUsedNow && hasArcaneRecoverySelection;
+		if (!hasHitDiceRecovery && !hasArcaneRecovery) return;
+
+		if (hasHitDiceRecovery) {
+			const healedHp = Math.min(maxHitPoints, currentHitPoints + shortRestHealingTotal);
+			const newUsedHitDice = Math.min(totalHitDice, usedHitDice + shortRestDiceCount);
+			updateField('hitPoints', { current: healedHp, max: maxHitPoints });
+			updateField('hitDice', { total: totalHitDice, used: newUsedHitDice });
+		}
+
+		if (hasArcaneRecovery) {
+			const updatedSpellSlots = { ...char.spellSlots };
+			for (let level = 1; level <= 5; level++) {
+				const recoverCount = getArcaneRecoverySelectedSlots(level);
+				if (recoverCount <= 0) continue;
+				const current = updatedSpellSlots[level] || { total: 0, used: 0 };
+				updatedSpellSlots[level] = {
+					...current,
+					used: Math.max(0, (current.used || 0) - recoverCount)
+				};
+			}
+			updateField('spellSlots', updatedSpellSlots);
+			updateField('arcaneRecoveryUsed', true);
+		}
+
 		closeRestModal();
 	}
 
@@ -240,6 +329,7 @@
 		updateField('hitPoints', { current: maxHitPoints, max: maxHitPoints });
 		updateField('hitDice', { total: totalHitDice, used: Math.max(0, usedHitDice - recovered) });
 		updateField('spellSlots', resetSpellSlots);
+		updateField('arcaneRecoveryUsed', false);
 		closeRestModal();
 	}
 
@@ -301,6 +391,12 @@
 				const newLevel = forcedLevel || c.level || 1;
 				const newC = { ...c, class: normalizedClass, level: newLevel };
 				if (cls) {
+					const spellAbilityKey = cls.spellAbility ? normalizeStatKey(cls.spellAbility) : null;
+					if (spellAbilityKey) {
+						newC.spellcastingAbility = spellAbilityKey;
+					} else {
+						delete newC.spellcastingAbility;
+					}
 					if (cls.savingThrowProficiencies) {
 						const baseSaves = { ...newC.saveProficiencies };
 						['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].forEach(
@@ -479,22 +575,57 @@
 			: 'none'
 	);
 
+	const classDefinition = $derived.by(() => {
+		if (!char || !char.class) return null;
+		const normalizedClass = normalizeClassName(char.class);
+		return (
+			availableClasses.find(
+				(c: any) => c.name === normalizedClass || c.id === char.class || c.id === normalizedClass
+			) || null
+		);
+	});
+
+	const spellcastingAbilityKey = $derived.by(() => {
+		if (!char) return null;
+		if (char.spellcastingAbility) {
+			const fromCharacter = normalizeStatKey(char.spellcastingAbility);
+			if (fromCharacter) return fromCharacter;
+		}
+		return classDefinition?.spellAbility ? normalizeStatKey(classDefinition.spellAbility) : null;
+	});
+
+	const spellcastingAbilityLabel = $derived.by(() => {
+		if (!spellcastingAbilityKey) return null;
+		const stat = STATS.find((s) => s.key === spellcastingAbilityKey);
+		return stat?.label || null;
+	});
+
+	const spellcastingAbilityModifier = $derived.by(() => {
+		if (!char || !spellcastingAbilityKey) return 0;
+		return getMod(char.abilities[spellcastingAbilityKey]);
+	});
+
+	const spellSaveDc = $derived.by(() => 8 + spellcastingAbilityModifier + proficiencyBonus);
+	const spellAttackModifier = $derived.by(() => spellcastingAbilityModifier + proficiencyBonus);
+
 	const classSpellcastingInfo = $derived.by(() => {
 		if (!char || !char.class || !char.level) return null;
-		const normalizedClass = normalizeClassName(char.class);
-		const cls = availableClasses.find(
-			(c: any) => c.name === normalizedClass || c.id === char.class || c.id === normalizedClass
-		);
+		const cls = classDefinition;
 		if (!cls || !cls.classFeatures) return null;
 
 		const levelStr = char.level.toString();
 		for (const lvl of Object.keys(cls.classFeatures)) {
 			const featuresAtLvl = cls.classFeatures[lvl] || [];
 			for (const feature of featuresAtLvl) {
+				const featName = feature.name?.toLowerCase() || '';
+				const featType = feature.type?.toLowerCase() || '';
 				if (
-					feature.type?.includes('Spellcasting') ||
-					feature.name?.includes('Spellcasting') ||
-					feature.name?.includes('Pact Magic') ||
+					featType.includes('spellcasting') ||
+					featName.includes('spellcasting') ||
+					featName.includes('pact magic') ||
+					featName.includes('lancement de sorts') ||
+					featName.includes('incantation') ||
+					featName.includes('magie de pacte') ||
 					feature.spellSlotsPerLevel
 				) {
 					const slotsArr = feature.spellSlotsPerLevel?.[levelStr] || [];
@@ -619,12 +750,32 @@
 
 		if (char.spells?.some((s) => s.name === spell.title)) return;
 
+		const isPrepared = casterType === 'grimoire' ? false : true;
+
+		if (isPrepared && classSpellcastingInfo) {
+			if (spell.level === 0 && classSpellcastingInfo.cantripsCount > 0) {
+				if (preparedCantripsCount >= classSpellcastingInfo.cantripsCount) {
+					alert(
+						`Vous avez atteint le nombre maximum de tours de magie (${classSpellcastingInfo.cantripsCount}).`
+					);
+					return;
+				}
+			} else if (spell.level > 0 && classSpellcastingInfo.preparedSpellsCount > 0) {
+				if (preparedSpellsCount >= classSpellcastingInfo.preparedSpellsCount) {
+					alert(
+						`Vous avez atteint le nombre maximum de sorts ${casterType === 'known' ? 'connus' : 'préparés'} (${classSpellcastingInfo.preparedSpellsCount}).`
+					);
+					return;
+				}
+			}
+		}
+
 		const currentSpells = char.spells || [];
 		const newSpell = {
 			id: crypto.randomUUID(),
 			name: spell.title,
 			level: spell.level,
-			isPrepared: casterType === 'grimoire' ? false : true
+			isPrepared
 		};
 		updateField('spells', [...currentSpells, newSpell]);
 		closeSpellModal();
@@ -642,9 +793,30 @@
 	function toggleSpellPrepared(spellId: string) {
 		if (!char) return;
 		const currentSpells = char.spells || [];
-		const updatedSpells = currentSpells.map((s) =>
-			s.id === spellId ? { ...s, isPrepared: !s.isPrepared } : s
-		);
+		const spellIndex = currentSpells.findIndex((s) => s.id === spellId);
+		if (spellIndex === -1) return;
+
+		const spell = currentSpells[spellIndex];
+		if (!spell.isPrepared && classSpellcastingInfo) {
+			if (spell.level === 0 && classSpellcastingInfo.cantripsCount > 0) {
+				if (preparedCantripsCount >= classSpellcastingInfo.cantripsCount) {
+					alert(
+						`Vous avez atteint le nombre maximum de tours de magie (${classSpellcastingInfo.cantripsCount}).`
+					);
+					return;
+				}
+			} else if (spell.level > 0 && classSpellcastingInfo.preparedSpellsCount > 0) {
+				if (preparedSpellsCount >= classSpellcastingInfo.preparedSpellsCount) {
+					alert(
+						`Vous avez atteint le nombre maximum de sorts ${casterType === 'known' ? 'connus' : 'préparés'} (${classSpellcastingInfo.preparedSpellsCount}).`
+					);
+					return;
+				}
+			}
+		}
+
+		const updatedSpells = [...currentSpells];
+		updatedSpells[spellIndex] = { ...spell, isPrepared: !spell.isPrepared };
 		updateField('spells', updatedSpells);
 	}
 
@@ -653,6 +825,7 @@
 	);
 
 	const preparedCantripsCount = $derived(activeSpellsFlat.filter((s) => s.level === 0).length);
+	const preparedSpellsCount = $derived(activeSpellsFlat.filter((s) => s.level > 0).length);
 
 	const grimoireSpellsFlat = $derived(
 		char?.spells?.sort((a: any, b: any) => a.level - b.level) || []
@@ -712,7 +885,25 @@
 					</div>
 					<div class="flex flex-col items-center">
 						<span class="text-[--color-parchment-400]">PV</span>
-						<span class="text-xl">{currentHitPoints}/{maxHitPoints}</span>
+						<div class="flex items-center gap-1 text-xl">
+							<input
+								type="number"
+								min="0"
+								max={maxHitPoints}
+								class="w-16 bg-transparent text-center text-xl outline-none"
+								value={currentHitPoints}
+								oninput={(e) => {
+									if (!char) return;
+									const next = parseInt(e.currentTarget.value) || 0;
+									updateField('hitPoints', {
+										...char.hitPoints,
+										current: Math.max(0, Math.min(next, maxHitPoints))
+									});
+								}}
+							/>
+							<span>/</span>
+							<span>{maxHitPoints}</span>
+						</div>
 					</div>
 					<div class="flex flex-col items-center">
 						<span class="text-[--color-parchment-400]">DÉS DE VIE</span>
@@ -1287,6 +1478,52 @@
 					</div>
 
 					<div class="flex flex-col gap-6">
+						<div
+							class="flex flex-col gap-3 rounded-lg border border-[--color-parchment-300] bg-[--color-parchment-200]/50 p-4"
+						>
+							<h3 class="font-serif text-lg font-bold text-[--color-parchment-900]">Incantation</h3>
+							<div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+								<div class="rounded border border-[--color-parchment-300] bg-white p-3">
+									<div class="text-xs font-bold text-[--color-parchment-600] uppercase">
+										Caractéristique d'incantation
+									</div>
+									<div class="mt-1 text-sm font-bold text-[--color-parchment-900]">
+										{spellcastingAbilityLabel || 'Non définie'}
+									</div>
+								</div>
+								<div class="rounded border border-[--color-parchment-300] bg-white p-3">
+									<div class="text-xs font-bold text-[--color-parchment-600] uppercase">
+										Modificateur de caractéristique
+									</div>
+									<div class="mt-1 text-sm font-bold text-[--color-parchment-900]">
+										{formatMod(spellcastingAbilityModifier)}
+									</div>
+								</div>
+								<div class="rounded border border-[--color-parchment-300] bg-white p-3">
+									<div class="text-xs font-bold text-[--color-parchment-600] uppercase">
+										Jet de sauvegarde de sort
+									</div>
+									<div class="mt-1 text-sm font-bold text-[--color-parchment-900]">
+										{spellSaveDc}
+									</div>
+									<div class="mt-1 text-xs text-[--color-parchment-600] italic">
+										Les monstres doivent faire plus que ce nombre pour résister à vos sorts.
+									</div>
+								</div>
+								<div class="rounded border border-[--color-parchment-300] bg-white p-3">
+									<div class="text-xs font-bold text-[--color-parchment-600] uppercase">
+										Modificateur d'attaque de sort
+									</div>
+									<div class="mt-1 text-sm font-bold text-[--color-parchment-900]">
+										{formatMod(spellAttackModifier)}
+									</div>
+									<div class="mt-1 text-xs text-[--color-parchment-600] italic">
+										Certains sorts d'attaque demandent un test, utilisez ce modificateur.
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<!-- Section Emplacements de Sorts globale -->
 						{#if casterType !== 'none'}
 							<div
@@ -1302,15 +1539,27 @@
 										<div class="flex gap-4 text-xs text-[--color-parchment-600]">
 											{#if classSpellcastingInfo.cantripsCount}
 												<span
-													>Tours de Magie max : <strong
-														>{classSpellcastingInfo.cantripsCount}</strong
+													>Tours de Magie : <strong
+														>{preparedCantripsCount} / {classSpellcastingInfo.cantripsCount}</strong
 													></span
 												>
 											{/if}
 											{#if classSpellcastingInfo.preparedSpellsCount && casterType === 'prepared'}
 												<span
-													>Sorts préparés max : <strong
-														>{classSpellcastingInfo.preparedSpellsCount}</strong
+													>Sorts préparés : <strong
+														class={preparedSpellsCount > classSpellcastingInfo.preparedSpellsCount
+															? 'text-red-600'
+															: ''}
+														>{preparedSpellsCount} / {classSpellcastingInfo.preparedSpellsCount}</strong
+													></span
+												>
+											{:else if classSpellcastingInfo.preparedSpellsCount && casterType === 'known'}
+												<span
+													>Sorts connus : <strong
+														class={preparedSpellsCount > classSpellcastingInfo.preparedSpellsCount
+															? 'text-red-600'
+															: ''}
+														>{preparedSpellsCount} / {classSpellcastingInfo.preparedSpellsCount}</strong
 													></span
 												>
 											{/if}
@@ -1449,8 +1698,9 @@
 									{/each}
 								</div>
 								<span class="w-full text-xs text-[--color-parchment-500] italic"
-									>Vos emplacements de sorts sont calculés automatiquement en fonction de votre
-									niveau.</span
+									>Vos emplacements de sorts correspondent au nombre de sorts de chaque niveau que
+									vous pouvez lancer. Il sont réinitialisés après un repos long. Le nombre
+									d'emplacements de sorts disponibles dépend de votre classe et de votre niveau.</span
 								>
 							</div>
 						{/if}
@@ -1737,6 +1987,74 @@
 							</div>
 						{/if}
 
+						{#if hasArcaneRecoveryFeature}
+							<div class="rounded border border-[--color-parchment-300] bg-white p-3 text-sm">
+								<h3 class="mb-2 font-serif text-base font-bold text-[--color-parchment-900]">
+									Récupération des arcanes
+								</h3>
+								{#if arcaneRecoveryCanBeUsedNow}
+									<p class="text-[--color-parchment-700]">
+										Lorsque vous terminez un repos court, vous pouvez récupérer des emplacements de
+										sorts dépensés. Le niveau combiné récupéré ne peut pas dépasser <strong
+											>{arcaneRecoveryLevelBudget}</strong
+										>, et vous ne pouvez pas récupérer d'emplacements de niveau 6 ou plus.
+									</p>
+									<p class="mt-2 text-xs text-[--color-parchment-600]">
+										Niveaux restants à allouer:
+										<strong>{arcaneRecoveryRemainingBudget}</strong>
+									</p>
+
+									<div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+										{#each [1, 2, 3, 4, 5] as level}
+											{@const spentAtLevel = getArcaneRecoveryUsedSlots(level)}
+											{@const selectedAtLevel = getArcaneRecoverySelectedSlots(level)}
+											{#if spentAtLevel > 0}
+												<div
+													class="rounded border border-[--color-parchment-300] bg-[--color-parchment-100] p-2"
+												>
+													<div class="flex items-center justify-between gap-2">
+														<span class="text-xs font-bold text-[--color-parchment-700]">
+															Niveau {level}
+														</span>
+														<span class="text-xs text-[--color-parchment-600]">
+															Dépensés: {spentAtLevel}
+														</span>
+													</div>
+													<div class="mt-2 flex items-center justify-between gap-3">
+														<button
+															onclick={() => decreaseArcaneRecoveryLevel(level)}
+															disabled={selectedAtLevel <= 0}
+															class="flex h-6 w-6 items-center justify-center rounded border border-[--color-parchment-300] bg-white text-[--color-parchment-900] disabled:cursor-not-allowed disabled:opacity-50"
+															title="Réduire"
+														>
+															<Minus class="h-3 w-3" />
+														</button>
+														<span
+															class="min-w-[3rem] text-center font-bold text-[--color-parchment-900]"
+														>
+															{selectedAtLevel}
+														</span>
+														<button
+															onclick={() => increaseArcaneRecoveryLevel(level)}
+															disabled={!canIncreaseArcaneRecoveryLevel(level)}
+															class="flex h-6 w-6 items-center justify-center rounded border border-[--color-parchment-300] bg-white text-[--color-parchment-900] disabled:cursor-not-allowed disabled:opacity-50"
+															title="Augmenter"
+														>
+															<Plus class="h-3 w-3" />
+														</button>
+													</div>
+												</div>
+											{/if}
+										{/each}
+									</div>
+								{:else}
+									<p class="text-[--color-parchment-700]">
+										Vous avez déjà utilisé cette fonctionnalité depuis votre dernier long rest.
+									</p>
+								{/if}
+							</div>
+						{/if}
+
 						<div class="flex justify-end gap-2">
 							<button
 								onclick={closeRestModal}
@@ -1746,7 +2064,7 @@
 							</button>
 							<button
 								onclick={applyShortRest}
-								disabled={shortRestDiceCount <= 0}
+								disabled={shortRestDiceCount <= 0 && !hasArcaneRecoverySelection}
 								class="rounded bg-[--color-parchment-800] px-3 py-2 text-sm font-bold text-[--color-parchment-100] disabled:cursor-not-allowed disabled:opacity-50"
 							>
 								Valider le short rest

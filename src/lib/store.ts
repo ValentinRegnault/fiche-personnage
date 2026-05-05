@@ -84,6 +84,7 @@ export function addCharacter(campaignId: string, name: string) {
 		expertise: {},
 		toolProficiencies: '',
 		weaponProficiencies: '',
+		arcaneRecoveryUsed: false,
 		items: [],
 		spells: [],
 		features: [],

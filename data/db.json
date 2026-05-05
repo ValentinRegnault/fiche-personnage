@@ -12,9 +12,9 @@
       "campaignId": "00c968f9-7141-4181-9cad-cdaa4fc16784",
       "name": "Psilo",
       "species": "Halfelin",
-      "background": "Sage",
-      "class": "Sorcier",
-      "level": 1,
+      "background": "Criminel",
+      "class": "Magicien",
+      "level": 4,
       "height": "Petit",
       "speed": "30 pieds.",
       "armorClass": 11,
@@ -43,11 +43,12 @@
         "acrobatics": false,
         "animalHandling": false,
         "insight": false,
-        "deception": false,
+        "deception": true,
         "stealth": true,
         "arcana": true,
         "investigation": true,
-        "persuasion": true
+        "persuasion": true,
+        "perception": false
       },
       "expertise": {},
       "toolProficiencies": "",
@@ -64,15 +65,27 @@
       ],
       "spells": [
         {
-          "id": "a093e4fa-d876-4db1-a50d-fecac6824cf7",
-          "name": "Mains brûlantes",
-          "level": 1,
+          "id": "e3e2d0d7-86e8-4548-b7c3-4f9430bc01bf",
+          "name": "Éclaboussure d'acide",
+          "level": 0,
+          "isPrepared": false
+        },
+        {
+          "id": "caaf76e6-46d4-4477-921d-29917ddd9c67",
+          "name": "Modifier soi-même",
+          "level": 2,
           "isPrepared": true
         },
         {
-          "id": "9135bb04-d07c-40ed-a536-0758bc4ffe71",
-          "name": "Personne de charme",
-          "level": 1,
+          "id": "58044905-5abd-4e0d-a6db-cc85e67ea849",
+          "name": "Cécité/Surdité",
+          "level": 2,
+          "isPrepared": true
+        },
+        {
+          "id": "4b5856b2-4580-4c39-bdb6-4c72af3bfbb7",
+          "name": "Flèche acide",
+          "level": 2,
           "isPrepared": true
         }
       ],
@@ -84,46 +97,64 @@
           "source": "Espèce"
         },
         {
-          "id": "af7b630f-ff6a-4caa-bb1f-486cc8546f1f",
-          "name": "Devenir sorcier en tant que personnage de niveau 1",
-          "description": "En tant que Sorcier de niveau 1, vous commencez le jeu avec 6 + vos points de vie du modificateur de Constitution.\n\nTraits de base du sorcier\nCapacité principale : Charisme\nDé de points de vie : D6 par niveau de sorcier\nCompétences du jet de sauvegarde : constitution et charisme\nCompétences : Choisissez 2 : Arcanes, Tromperie, Perspicacité, Intimidation, Persuasion ou Religion\nMaîtrise des armes : armes simples\nEntraînement à l'armure : Aucun\nÉquipement de départ : Choisissez A ou 8 : (A) Lance, 2 dagues, Arcane Focus (cristal), Pack de Dungeoneer et 28 GP ; ou (B) 50 GP\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "a4e5b6cc-a554-4f13-8506-67331cc3f49e",
-          "name": "Devenir sorcier en tant que personnage multiclasse",
-          "description": "Traits de base du sorcier\nCapacité principale : Charisme\nDé de points de vie : D6 par niveau de sorcier\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "cd3d6e4e-0f30-4e20-aca2-80c45b12243b",
-          "name": "Niveau 1 : lancement de sorts",
-          "description": "En puisant dans votre magie innée, vous pouvez lancer des sorts. Voir le chapitre 7 pour les règles sur le lancement de sorts. Les informations ci-dessous détaillent la manière dont vous utilisez ces règles avec les sorts de Sorcier, qui apparaissent dans la liste des sorts de Sorcier plus loin dans la description de la classe.\n\nCantrips. Vous connaissez quatre cantrips Sorcier de votre choix. Lumière, Prestidigitation, Prise Choquante et Explosion Sorcière sont recommandés. Chaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer l'un de vos cantrips de cette fonctionnalité par un autre cantrip de Sorcier de votre choix.\n\tLorsque vous atteignez les niveaux de sorcier 4 et 10, vous apprenez un autre cantrip de sorcier de votre choix, comme indiqué dans la colonne Cantrips du tableau des caractéristiques du sorcier.\n\nEmplacements de sorts. Le tableau des fonctionnalités du sorcier indique le nombre d'emplacements de sorts dont vous disposez pour lancer vos sorts de niveau 1+. Vous récupérez tous les emplacements dépensés lorsque vous terminez un repos long.\n\nSorts préparés de niveau 1+. Vous préparez la liste des sorts de niveau 1+ que vous pouvez lancer avec cette fonctionnalité. Pour commencer, choisissez deux sorts de Sorcier de niveau 1. Burning Hands et Detect Magic sont recommandés.\n\tLe nombre de sorts sur votre liste augmente à mesure que vous gagnez des niveaux de sorcier, comme indiqué dans la colonne Sorts préparés du tableau des fonctionnalités du sorcier. Chaque fois que ce nombre augmente, choisissez des sorts de sorcier supplémentaires jusqu'à ce que le nombre de sorts sur votre liste corresponde au nombre indiqué dans le tableau des caractéristiques du sorcier. Les sorts choisis doivent être d'un niveau pour lequel vous disposez d'emplacements de sorts. Par exemple, si vous êtes un sorcier de niveau 3, votre liste de sorts préparés peut inclure six sorts de sorcier de niveau 1 ou 2 dans n'importe quelle combinaison.\n\tSi une autre fonctionnalité de Sorcier vous donne des sorts que vous avez toujours préparés, ces sorts ne comptent pas dans le nombre de sorts que vous pouvez préparer avec cette fonctionnalité, mais ces sorts comptent autrement comme des sorts de Sorcier pour vous.\n\nChanger vos sorts préparés. À chaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer un sort de votre liste par un autre sort de Sorcier pour lequel vous disposez d'emplacements de sorts.\n\nCapacité de lancer des sorts. Le charisme est votre capacité de lancement de sorts pour vos sorts de sorcier.\n\nConcentration sur le lancement de sorts. Vous pouvez utiliser un Focus Arcane comme Focus de lancement de sorts pour vos sorts de Sorcier.\n\nSorts de sorcier préparés :\nNiveau | Sorts préparés\n1 | 2\n2 | 4\n3 | 6\n4 | 7\n5 | 9\n6 | 10\n7 | 11\n8 | 12\n9 | 14\n10 | 15\n11 | 16\n12 | 16\n13 | 17\n14 | 17\n15 | 18\n16 | 18\n17 | 19\n18 | 20\n19 | 21\n20 | 22\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "ce7b1dcc-1324-44b7-a5c3-a0d3609768cc",
-          "name": "Niveau 1 : Sorcellerie Innée",
-          "description": "Un événement de votre passé a laissé en vous une marque indélébile, vous imprégnant d’une magie frémissante. En tant qu'action bonus, vous pouvez libérer cette magie pendant 1 minute, pendant laquelle vous bénéficiez des avantages suivants :\n\n\t• Le DD de sauvegarde des sorts de vos sorts de Sorcier augmente de 1.\n\t• Vous avez l'Avantage aux jets d'attaque des sorts de Sorcier que vous lancez.\n\nVous pouvez utiliser cette fonctionnalité deux fois et vous en récupérez toutes les utilisations dépensées lorsque vous terminez un repos long.\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "bb5c52c1-6342-4eab-9dc7-d92234cb34f0",
-          "name": "Niveau 2 : Fonte de Magie",
-          "description": "Vous pouvez puiser dans la source de la magie qui sommeille en vous. Cette source est représentée par des points de sorcellerie, qui vous permettent de créer une variété d'effets magiques.\n\tVous disposez de 2 points de sorcellerie, et vous en gagnez davantage à mesure que vous atteignez des niveaux plus élevés, comme indiqué dans la colonne Points de sorcellerie du tableau des caractéristiques du sorcier. Vous ne pouvez pas avoir plus de points de sorcellerie que le nombre indiqué dans le tableau pour votre niveau. Vous récupérez tous les points de sorcellerie dépensés lorsque vous terminez un repos long.\n\tVous pouvez utiliser vos points de sorcellerie pour alimenter les options ci-dessous, ainsi que d'autres fonctionnalités, telles que Metamagic, qui utilisent ces points.\n\nConversion des emplacements de sorts en points de sorcellerie. Vous pouvez dépenser un emplacement de sort pour gagner un nombre de points de sorcellerie égal au niveau de l'emplacement (aucune action requise).\n\nCréation d'emplacements de sorts. Par une action bonus, vous pouvez transformer les points de sorcellerie non dépensés en un emplacement de sort. Le tableau Création d'emplacements de sorts indique le coût de création d'un emplacement de sort d'un niveau donné et indique le niveau de sorcier minimum que vous devez avoir pour créer un emplacement. Vous pouvez créer un emplacement de sort ne dépassant pas le niveau 5.\n\tTout emplacement de sort que vous créez avec cette fonctionnalité disparaît lorsque vous terminez un repos long.\n\nCréation d'emplacements de sorts :\nNiveau d'emplacement de sort | Coût en points de sorcellerie | Min. Niveau de sorcier\n1 | 2 | 2\n2 | 3 | 3\n3 | 5 | 5\n4 | 6 | 7\n5 | 7 | 9\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "dd43106c-7d25-4372-9750-8fcaf047cfe1",
-          "name": "Niveau 2 : métamagie",
-          "description": "Parce que votre magie coule de l’intérieur, vous pouvez modifier vos sorts en fonction de vos besoins ; vous gagnez deux options métamagiques de votre choix parmi « Options métamagiques » plus loin dans la description de cette classe (ajoutées en tant que sorts dans la liste des sorts Options métamagiques). Vous utilisez les options choisies pour modifier temporairement les sorts que vous lancez. Pour utiliser une option, vous devez dépenser le nombre de points de sorcellerie qu'elle coûte.\n\tVous ne pouvez utiliser qu'une seule option métamagique sur un sort lorsque vous le lancez, sauf indication contraire dans l'une de ces options.\n\tChaque fois que vous gagnez un niveau de Sorcier, vous pouvez remplacer l'une de vos options de métamagie par une autre que vous ne connaissez pas. Vous gagnez deux options supplémentaires au niveau de sorcier 10 et deux autres au niveau de sorcier 17.\n\nSource : Document de référence système v5.2.1",
-          "source": "Classe"
-        },
-        {
-          "id": "fb5d38dd-33cc-41fa-821f-71a9d63cafe7",
-          "name": "Initié magique (Magicien)",
-          "description": "Vous bénéficiez des avantages suivants.\n\nDeux Cantrips. Vous apprenez deux sorts mineurs de votre choix dans la liste des sorts de clerc, de druide ou de sorcier. L'intelligence, la sagesse ou le charisme sont votre capacité de lancement de sorts pour les sorts de ce don (à choisir lorsque vous sélectionnez ce don).\n\nSort de niveau 1. Choisissez un sort de niveau 1 dans la même liste que celle que vous avez sélectionnée pour les sorts mineurs de ce don. Vous avez toujours ce sort préparé. Vous pouvez le lancer une fois sans emplacement de sort, et vous retrouvez la possibilité de le lancer de cette manière lorsque vous terminez un repos long. Vous pouvez également lancer le sort en utilisant n’importe quel emplacement de sort dont vous disposez.\n\nChangement de sort. À chaque fois que vous gagnez un nouveau niveau, vous pouvez remplacer l'un des sorts que vous avez choisis pour ce don par un autre sort du même niveau issu de la liste de sorts choisie.\n\nRépétable. Vous pouvez obtenir ce don plusieurs fois, mais vous devez choisir une liste de sorts différente à chaque fois.\n\nSource : Document de référence système v5.2.1",
+          "id": "140f5e5d-754c-4089-9134-a76a2a55d261",
+          "name": "Alerte",
+          "description": "Vous bénéficiez des avantages suivants.\n\nMaîtrise de l’initiative. Lorsque vous lancez un jet d'Initiative, vous pouvez ajouter votre bonus de compétence au jet.\n\nÉchange d’initiatives. Immédiatement après avoir lancé le jet d'Initiative, vous pouvez échanger votre Initiative avec celle d'un allié volontaire dans le même combat. Vous ne pouvez pas effectuer cet échange si vous ou votre allié êtes en état d'incapacité.\n\nSource : Document de référence système v5.2.1",
           "source": "Historique"
+        },
+        {
+          "id": "63d66576-fa00-4a84-81ac-4e95957e8926",
+          "name": "Devenir un sorcier en tant que personnage de niveau 1",
+          "description": "En tant que sorcier de niveau 1, vous commencez à jouer avec 6 + vos points de vie du modificateur de Constitution.\n\nCaractéristiques principales du sorcier\nCapacité principale : Intelligence\nDé de points de vie : D6 par niveau de sorcier\nCompétences en matière de jet de sauvegarde : intelligence et sagesse\nCompétences : Choisissez 2 : Arcanes, Histoire, Perspicacité, Enquête, Médecine, Nature ou Religion\nMaîtrise des armes : armes simples\nEntraînement à l'armure : Aucun\nÉquipement de départ : Choisissez A ou 8 : (A) 2 dagues, Arcane Focus (Quarterstaff), Robe, Livre de sorts, Pack d'érudit et 5 GP ; ou (B) 55 GP\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "e7ee5633-acfc-4efb-8907-803a950cf22a",
+          "name": "Devenir un sorcier en tant que personnage multiclasse",
+          "description": "Caractéristiques principales du sorcier\nCapacité principale : Intelligence\nDé de points de vie : D6 par niveau de sorcier\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "c8a999cf-50c6-427f-b5af-a221536685bc",
+          "name": "Niveau 1 : lancement de sorts",
+          "description": "En tant qu'étudiant en magie arcanique, vous avez appris à lancer des sorts. Voir le chapitre 7 pour les règles sur le lancement de sorts. Les informations ci-dessous détaillent la manière dont vous utilisez ces règles avec les sorts de sorcier, qui apparaissent dans la liste des sorts de sorcier plus loin dans la description de la classe.\n\nCantrips. Vous connaissez trois sorts mineurs de sorcier de votre choix. Light, Mage Hand et Ray of Frost sont recommandés. Chaque fois que vous terminez un repos long. vous pouvez remplacer l'un de vos cantrips grâce à cette fonctionnalité par un autre cantrip Wizard de votre choix.\n\tLorsque vous atteignez les niveaux 4 et 10 de l'Assistant, vous apprenez une autre extraction d'incantations de l'Assistant de votre choix, comme indiqué dans la colonne Cantrips du tableau Fonctionnalités de l'Assistant.\n\nLivre de sorts. Votre apprentissage de sorcier a abouti à la création d'un livre unique : votre grimoire. C'est un petit objet qui pèse 3 livres. contient 100 pages et ne peut être lu que par vous ou par quelqu'un qui lance Identifier. Vous déterminez l'apparence et les matériaux du livre, comme un tome sur tranche dorée ou une collection de vélin relié avec de la ficelle.\n\tLe livre contient les sorts de niveau 1+ que vous connaissez. Cela commence par six sorts de sorcier de niveau 1 de votre choix. Détectez la magie, la chute de plumes, l'armure de mage, le missile magique. Sleep et Thunderwave sont recommandés.\n\tChaque fois que vous gagnez un niveau de sorcier après 1, ajoutez deux sorts de sorcier de votre choix à votre livre de sorts. Chacun de ces sorts doit être d'un niveau pour lequel vous disposez d'emplacements de sorts, comme indiqué dans le tableau des fonctionnalités du sorcier. Les sorts sont le point culminant des recherches arcaniques que vous effectuez régulièrement.\n\nEmplacements de sorts. Le tableau des fonctionnalités du sorcier indique le nombre d'emplacements de sorts dont vous disposez pour lancer vos sorts de niveau I+. Vous récupérez tous les emplacements dépensés lorsque vous terminez un repos long.\n\nSorts préparés de niveau 1+. Vous préparez la liste des sorts de niveau 1+ que vous pouvez lancer avec cette fonctionnalité. Pour ce faire, choisissez quatre sorts dans votre grimoire. Les sorts choisis doivent être d'un niveau pour lequel vous disposez d'emplacements de sorts.\n\tLe nombre de sorts sur votre liste augmente à mesure que vous gagnez des niveaux de sorcier, comme indiqué dans la colonne Sorts préparés du tableau des fonctionnalités du sorcier. Chaque fois que ce nombre augmente, choisissez des sorts de sorcier supplémentaires jusqu'à ce que le nombre de sorts sur votre liste corresponde au nombre dans le tableau. Les sorts choisis doivent être d'un niveau pour lequel vous disposez d'emplacements de sorts. Par exemple, si vous êtes un sorcier de niveau 3, votre liste de sorts préparés peut inclure six sorts de niveaux 1 et 2 dans n'importe quelle combinaison, choisis dans votre grimoire.\n\tSi une autre fonctionnalité de sorcier vous donne des sorts que vous avez toujours préparés, ces sorts ne comptent pas dans le nombre de sorts que vous pouvez préparer avec cette fonctionnalité, mais ces sorts comptent autrement comme des sorts de sorcier pour vous.\n\nChanger vos sorts préparés. Chaque fois que vous terminez un repos long, vous pouvez modifier votre liste de sorts préparés, en remplaçant n'importe lequel des sorts par des sorts de votre livre de sorts.\n\nCapacité de lancer des sorts. L'intelligence est votre capacité de lancement de sorts pour vos sorts de sorcier.\n\nConcentration sur le lancement de sorts. Vous pouvez utiliser un Focus Arcane ou votre livre de sorts comme Focus de lancement de sorts pour vos sorts de sorcier.\n\nSorts de sorcier préparés :\nNiveau | Sorts préparés\n1 | 4\n2 | 5\n3 | 6\n4 | 7\n5 | 9\n6 | 10\n7 | 11\n8 | 12\n9 | 14\n10 | 15\n11 | 16\n12 | 16\n13 | 17\n14 | 18\n15 | 19\n16 | 21\n17 | 22\n18 | 23\n19 | 24\n20 | 25\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "140fcf80-cff6-4a1c-8e94-02640b777e85",
+          "name": "Extension et remplacement d'un livre de sorts",
+          "description": "Les sorts que vous ajoutez à votre livre de sorts au fur et à mesure que vous gagnez des niveaux reflètent vos recherches magiques en cours, mais vous pourriez trouver d'autres sorts au cours de vos aventures que vous pourrez ajouter au livre. Vous pouvez par exemple découvrir un sort de sorcier sur un parchemin de sorts, puis le copier dans votre livre de sorts.\n\nCopier un sort dans le livre. Lorsque vous trouvez un sort de sorcier de niveau 1+, vous pouvez le copier dans votre grimoire s'il est d'un niveau que vous pouvez préparer et si vous avez le temps de le copier. Pour chaque niveau du sort, la transcription prend 2 heures et coûte 50 GP. Ensuite, vous pourrez préparer le sort comme les autres sorts de votre grimoire.\n\nCopier le livre. Vous pouvez copier un sort de votre grimoire dans un autre livre. C'est comme copier un nouveau sort dans votre grimoire, mais plus rapidement, puisque vous savez déjà comment lancer le sort. Vous n'avez besoin de dépenser que 1 heure et 10 PO pour chaque niveau du sort copié.\n\tSi vous perdez votre grimoire, vous pouvez utiliser la même procédure pour retranscrire les sorts de Sorcier que vous avez préparés dans un nouveau grimoire. Pour remplir le reste du nouveau livre, vous devez trouver de nouveaux sorts. Pour cette raison, de nombreux sorciers conservent un grimoire de sauvegarde.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "147d8244-0cc0-4796-91ad-d0a5ca19ba09",
+          "name": "Niveau 1 : Adepte du rituel",
+          "description": "Vous pouvez lancer n'importe quel sort en tant que rituel si ce sort a l'étiquette Rituel et s'il est dans votre livre de sorts. Vous n'avez pas besoin de préparer le sort, mais vous devez lire le livre pour lancer un sort de cette manière.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "1a95e92b-c5b7-4976-a254-0f1928218347",
+          "name": "Niveau 1 : Récupération des Arcanes",
+          "description": "Vous pouvez retrouver une partie de votre énergie magique en étudiant votre livre de sorts. Lorsque vous terminez un repos court, vous pouvez choisir des emplacements de sorts dépensés à récupérer. Les emplacements de sorts peuvent avoir un niveau combiné ne dépassant pas la moitié de votre niveau de sorcier (arrondi au supérieur), et aucun des emplacements ne peut être de niveau 6 ou supérieur. Par exemple, si vous êtes un sorcier de niveau 4, vous pouvez récupérer jusqu'à deux niveaux d'emplacements de sorts, en récupérant soit un emplacement de sort de niveau 2, soit deux emplacements de sorts de niveau 1.\n\tUne fois que vous avez utilisé cette fonctionnalité, vous ne pouvez plus le faire avant d'avoir terminé un repos long.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "8096a84c-ae94-40b4-bcf6-8ab3bfb2e260",
+          "name": "Niveau 2 : Érudit",
+          "description": "Tout en étudiant la magie, vous vous êtes également spécialisé dans un autre domaine d’études. Choisissez l’une des compétences suivantes que vous maîtrisez : Arcanes, Histoire, Enquête, Médecine, Nature ou Religion. Vous possédez une expertise dans la compétence choisie.\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "6b118493-2b9a-4719-9ea0-3f59ac895c8f",
+          "name": "Niveau 3 : Sous-classe de sorcier",
+          "description": "Vous gagnez une sous-classe de sorcier de votre choix. Les sous-classes Abjurer, Diviner, Evoker et Illusionist sont détaillées après la description de cette classe. Une sous-classe est une spécialisation qui vous accorde des fonctionnalités à certains niveaux d'Assistant. Pour le reste de votre carrière, vous bénéficiez de chacune des fonctionnalités de votre sous-classe qui sont du niveau de Sorcier ou inférieur.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
+        },
+        {
+          "id": "79bc4008-8e4c-4784-8cbe-3ce4f0725c39",
+          "name": "Niveau 4 : amélioration du score de capacité",
+          "description": "Vous gagnez le don Amélioration du score de capacité (voir chapitre 5) ou un autre don de votre choix pour lequel vous êtes qualifié. Vous bénéficiez à nouveau de cette fonctionnalité aux niveaux de sorcier 8, 12 et 16.\n\nSource : Document de référence système v5.2.1",
+          "source": "Classe"
         }
       ],
       "spellSlots": {
@@ -132,7 +163,7 @@
           "used": 0
         },
         "1": {
-          "total": 3,
+          "total": 2,
           "used": 0
         },
         "2": {
@@ -173,10 +204,12 @@
         "max": 10
       },
       "hitDice": {
-        "total": 1,
+        "total": 4,
         "used": 0
       },
-      "lastLongRestAt": 1776589137445
+      "lastLongRestAt": 1776589137445,
+      "arcaneRecoveryUsed": false,
+      "spellcastingAbility": "intelligence"
     }
   ]
 }
