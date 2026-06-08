@@ -66,6 +66,30 @@
           "quantity": 1,
           "isEquipped": false,
           "isCustom": false
+        },
+        {
+          "id": "b0d9dd54-f88c-4974-b5a2-a45cb5e3e158",
+          "name": "Nouvel objet",
+          "description": "qsdsqdsq",
+          "quantity": 1,
+          "isEquipped": true,
+          "isCustom": true
+        },
+        {
+          "id": "e9cd3104-36a6-4692-98ac-f1bd8dbc1e75",
+          "name": "Nouvel objet",
+          "description": "",
+          "quantity": 1,
+          "isEquipped": false,
+          "isCustom": true
+        },
+        {
+          "id": "62de6d64-c590-49b5-b58c-abe84d7208a2",
+          "name": "Super objet magique",
+          "description": "",
+          "quantity": 1,
+          "isEquipped": false,
+          "isCustom": true
         }
       ],
       "spells": [

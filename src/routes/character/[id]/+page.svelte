@@ -471,10 +471,7 @@
 
 	function addItem() {
 		if (!char) return;
-		const items = [
-			...char.items,
-			{ id: generateId(), name: '', quantity: 1, isEquipped: false }
-		];
+		const items = [...char.items, { id: generateId(), name: '', quantity: 1, isEquipped: false }];
 		updateField('items', items);
 	}
 
@@ -679,13 +676,15 @@
 		closeItemModal();
 	}
 
+	let customItemName = $state('');
+
 	function addCustomItem() {
 		if (!char) return;
 		const items = [
 			...char.items,
 			{
 				id: generateId(),
-				name: 'Nouvel objet',
+				name: customItemName || 'Nouvel objet',
 				description: '',
 				quantity: 1,
 				isEquipped: false,
@@ -2255,12 +2254,20 @@
 						class="w-full rounded-md border border-[--color-parchment-400] bg-white py-2 pr-4 pl-10 font-bold text-[--color-parchment-900] placeholder-[--color-parchment-400] focus:border-[--color-parchment-800] focus:outline-none"
 					/>
 				</div>
-				<button
-					onclick={addCustomItem}
-					class="w-full rounded bg-[--color-parchment-800] py-2 font-bold text-white transition-colors hover:bg-[--color-parchment-900]"
-				>
-					+ Ajouter un objet personnalisé
-				</button>
+				<div class="flex">
+					<input
+						type="text"
+						bind:value={customItemName}
+						placeholder="Nom de l'objet personnalisé..."
+						class="w-full rounded-md border border-[--color-parchment-400] bg-white py-2 pr-4 pl-10 font-bold text-[--color-parchment-900] placeholder-[--color-parchment-400] focus:border-[--color-parchment-800] focus:outline-none"
+					/>
+					<button
+						onclick={addCustomItem}
+						class="w-full rounded bg-[--color-parchment-800] py-2 font-bold transition-colors hover:bg-[--color-parchment-900]"
+					>
+						+ Ajouter un objet personnalisé
+					</button>
+				</div>
 			</div>
 
 			<!-- Results list -->
