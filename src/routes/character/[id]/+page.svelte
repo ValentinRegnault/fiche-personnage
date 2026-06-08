@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { charactersStore, updateCharacterField } from '$lib/store';
+	import { charactersStore, updateCharacterField, generateId } from '$lib/store';
 	import type { Character } from '$lib/types';
 	import {
 		Dices,
@@ -346,7 +346,7 @@
 					if (spec.features) {
 						const otherFeatures = (newC.features || []).filter((f) => f.source !== 'Espèce');
 						const newFeatures = spec.features.map((f: any) => ({
-							id: crypto.randomUUID(),
+							id: generateId(),
 							name: f.name,
 							description: f.description,
 							source: 'Espèce'
@@ -368,7 +368,7 @@
 				const newC = { ...c, background: val };
 				const preservedFeatures = (newC.features || []).filter((f) => f.source !== 'Historique');
 				const newBackgroundFeatures = (bg?.features || []).map((f: any) => ({
-					id: crypto.randomUUID(),
+					id: generateId(),
 					name: f.name,
 					description: f.description,
 					source: 'Historique'
@@ -417,7 +417,7 @@
 							const levelFeatures = cls.classFeatures[lvl.toString()] || [];
 							levelFeatures.forEach((f: any) => {
 								newFeatures.push({
-									id: crypto.randomUUID(),
+									id: generateId(),
 									name: f.name,
 									description: f.description,
 									source: 'Classe'
@@ -473,7 +473,7 @@
 		if (!char) return;
 		const items = [
 			...char.items,
-			{ id: crypto.randomUUID(), name: '', quantity: 1, isEquipped: false }
+			{ id: generateId(), name: '', quantity: 1, isEquipped: false }
 		];
 		updateField('items', items);
 	}
@@ -498,7 +498,7 @@
 		if (!char) return;
 		const features = [
 			...char.features,
-			{ id: crypto.randomUUID(), name: '', description: '', source: 'Origine' }
+			{ id: generateId(), name: '', description: '', source: 'Origine' }
 		];
 		updateField('features', features);
 	}
@@ -667,7 +667,7 @@
 		const items = [
 			...char.items,
 			{
-				id: crypto.randomUUID(),
+				id: generateId(),
 				name: contentItem.title,
 				description: contentItem.description,
 				quantity: 1,
@@ -684,7 +684,7 @@
 		const items = [
 			...char.items,
 			{
-				id: crypto.randomUUID(),
+				id: generateId(),
 				name: 'Nouvel objet',
 				description: '',
 				quantity: 1,
@@ -772,7 +772,7 @@
 
 		const currentSpells = char.spells || [];
 		const newSpell = {
-			id: crypto.randomUUID(),
+			id: generateId(),
 			name: spell.title,
 			level: spell.level,
 			isPrepared

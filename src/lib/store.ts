@@ -52,13 +52,19 @@ if (browser) {
 	charactersStore.subscribe(() => saveToServer());
 }
 
+export function generateId(): string {
+	return typeof crypto !== 'undefined' && crypto.randomUUID
+		? crypto.randomUUID()
+		: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
 export function addCampaign(name: string, dm: string) {
-	const id = crypto.randomUUID();
+	const id = generateId();
 	campaignsStore.update((lists) => [...lists, { id, name, dm }]);
 }
 
 export function addCharacter(campaignId: string, name: string) {
-	const id = crypto.randomUUID();
+	const id = generateId();
 	const char: Character = {
 		id,
 		campaignId,

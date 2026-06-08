@@ -4,6 +4,11 @@
       "id": "00c968f9-7141-4181-9cad-cdaa4fc16784",
       "name": "La mine perdue de Phalandine",
       "dm": "Valentin"
+    },
+    {
+      "id": "6hq222pvte9125ip6ns56wa",
+      "name": "sqdsqd",
+      "dm": "sqdqsd"
     }
   ],
   "characters": [
@@ -210,6 +215,76 @@
       "lastLongRestAt": 1776589137445,
       "arcaneRecoveryUsed": false,
       "spellcastingAbility": "intelligence"
+    },
+    {
+      "id": "yqkzzn5wb6gbikjpu6c8f6",
+      "campaignId": "6hq222pvte9125ip6ns56wa",
+      "name": "Psilo",
+      "species": "",
+      "background": "",
+      "class": "",
+      "level": 1,
+      "height": "Medium",
+      "speed": "30 ft.",
+      "armorClass": 10,
+      "initiativeBonus": 0,
+      "abilities": {
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 10,
+        "intelligence": 10,
+        "wisdom": 10,
+        "charisma": 10
+      },
+      "saveProficiencies": {},
+      "skillProficiencies": {
+        "acrobatics": true
+      },
+      "expertise": {},
+      "toolProficiencies": "",
+      "weaponProficiencies": "",
+      "arcaneRecoveryUsed": false,
+      "items": [],
+      "spells": [],
+      "features": [],
+      "spellSlots": {
+        "1": {
+          "total": 0,
+          "used": 0
+        },
+        "2": {
+          "total": 0,
+          "used": 0
+        },
+        "3": {
+          "total": 0,
+          "used": 0
+        },
+        "4": {
+          "total": 0,
+          "used": 0
+        },
+        "5": {
+          "total": 0,
+          "used": 0
+        },
+        "6": {
+          "total": 0,
+          "used": 0
+        },
+        "7": {
+          "total": 0,
+          "used": 0
+        },
+        "8": {
+          "total": 0,
+          "used": 0
+        },
+        "9": {
+          "total": 0,
+          "used": 0
+        }
+      }
     }
   ]
 }
