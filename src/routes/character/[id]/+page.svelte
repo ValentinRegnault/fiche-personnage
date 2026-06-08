@@ -138,7 +138,7 @@
 		)
 	);
 
-	const maxHitPoints = $derived.by(() => {
+	let maxHitPoints = $derived.by(() => {
 		if (!char) return 0;
 		return char.hitPoints?.max ?? 10;
 	});
@@ -837,6 +837,23 @@
 				(s.name && s.name.toLowerCase() === spellName.toLowerCase())
 		);
 	}
+
+	let levelUpModalOpen = $state(false);
+	function levelUp() {
+		if (!char) return;
+		levelUpModalOpen = true;
+		char.level += 1;
+		// changeClass(char.class || '', newLevel);
+	}
+
+	let levelUpHpRoll = $state(1);
+
+	function closeLevelUpModal() {
+		levelUpModalOpen = false;
+		alert(
+			`Vous avez atteint le niveau ${char?.level}! Vous avez un dé de vie supplémentaire à utiliser lors des repos courts, vos points de vie max augmentent, et vous gagnez peut-être de nouvelles capacités selon votre classe.`
+		);
+	}
 </script>
 
 {#if !char}
@@ -924,6 +941,12 @@
 							class="rounded bg-white px-3 py-1 text-xs font-bold text-[--color-parchment-900] transition-colors hover:bg-[--color-parchment-300]"
 						>
 							Long Rest
+						</button>
+						<button
+							onclick={levelUp}
+							class="rounded border border-[--color-parchment-300] bg-white px-3 py-1 text-xs font-bold text-[--color-parchment-900] transition-colors hover:bg-[--color-parchment-300]"
+						>
+							+ Level Up
 						</button>
 					</div>
 				</div>
@@ -2294,6 +2317,50 @@
 						{/each}
 					</div>
 				{/if}
+			</div>
+		</div>
+	</div>
+{/if}
+
+{#if levelUpModalOpen}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+		<div
+			class="flex max-h-[90vh] w-full max-w-2xl flex-col rounded-xl border-2 border-[--color-parchment-400] bg-white p-4 shadow-2xl"
+		>
+			<h2 class="text-xl font-bold text-[--color-parchment-900]">Level Up</h2>
+			<p class="mt-2 text-lg text-[--color-parchment-700]">
+				Vous avez gagné un niveau ! Vous avez actuellement {maxHitPoints} PV maximum. Choisissez une amélioration
+				:
+			</p>
+			<button
+				onclick={() => {
+					maxHitPoints += Math.floor(getClassHitDieSize(char?.class ?? 'druide') / 2);
+					closeLevelUpModal();
+				}}
+				class="cursor-pointer rounded border border-[--color-parchment-400] bg-[--color-parchment-800] px-4 py-2 hover:bg-[var(--color-parchment-400)]"
+			>
+				Augmenter vos points de vie maximum de +{getClassHitDieSize(char?.class ?? 'druide') / 2} points
+			</button>
+			<p class="mt-2 text-lg text-[--color-parchment-700]">
+				OU tirer un dé {getClassHitDieSize(char?.class ?? 'druide')} et entrer le résultat :
+			</p>
+			<div class="mt-2 flex gap-2">
+				<input
+					type="number"
+					min="1"
+					max={getClassHitDieSize(char?.class ?? 'druide')}
+					bind:value={levelUpHpRoll}
+					class="w-full shrink rounded border border-[--color-parchment-400] bg-white p-2"
+				/>
+				<button
+					onclick={() => {
+						maxHitPoints += levelUpHpRoll;
+						closeLevelUpModal();
+					}}
+					class="w-full grow cursor-pointer rounded border border-[--color-parchment-400] bg-[--color-parchment-800] px-4 py-2 hover:bg-[var(--color-parchment-400)]"
+				>
+					Augmenter vos points de vie maximum de {levelUpHpRoll} points
+				</button>
 			</div>
 		</div>
 	</div>
